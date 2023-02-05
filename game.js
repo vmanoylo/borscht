@@ -25,6 +25,7 @@ const assets = {
   onion: new Image(),
   step: new Audio("sound/step.wav"),
   splash: new Audio("sound/splash.mp3"),
+  song: new Audio("sound/song.m4a"),
 };
 assets.background.src = "img/bg.png";
 assets.player.src = "img/voi_sheet.png";
@@ -177,6 +178,8 @@ function drawVeg() {
 }
 
 canvas.onclick = function (event) {
+  assets.song.loop = true;
+  assets.song.play();
   const rect = canvas.getBoundingClientRect();
   const x = event.clientX - rect.left - player.size[0] / 2;
   // const y = event.clientY - rect.top;
@@ -186,6 +189,7 @@ canvas.onclick = function (event) {
 function game() {
   if (gameState.gameOver) {
     drawEnd();
+    assets.song.loop = false;
   } else {
     drawBg();
     updatePlayer();

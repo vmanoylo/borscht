@@ -23,6 +23,7 @@ const assets = {
   carrot: new Image(),
   potato: new Image(),
   onion: new Image(),
+  step: new Audio("sound/step.mp3"),
 };
 assets.background.src = "img/bg.png";
 assets.player.src = "img/voi_sheet.png";
@@ -137,10 +138,10 @@ function updatePlayer() {
   let dist = gameState.playerDest - player.pos[0];
   if (dist < playerSpeed && dist > -playerSpeed) {
     player.pos[0] = gameState.playerDest;
-  } else if (player.pos[0] < gameState.playerDest) {
-    player.pos[0] += playerSpeed;
   } else {
-    player.pos[0] -= playerSpeed;
+    assets.step.play();
+    player.pos[0] +=
+      player.pos[0] < gameState.playerDest ? playerSpeed : -playerSpeed;
   }
 }
 

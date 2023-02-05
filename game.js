@@ -16,6 +16,7 @@ const assets = {
   end: new Image(),
   player: new Image(),
   pot: new Image(),
+  stump: new Image(),
   beet: new Image(),
   carrot: new Image(),
   potato: new Image(),
@@ -24,6 +25,7 @@ const assets = {
 assets.background.src = "img/bg.png";
 assets.player.src = "img/voi_sheet.png";
 assets.pot.src = "img/Pot.png";
+assets.stump.src = "img/Stump.png";
 assets.beet.src = "img/Beet.png";
 assets.carrot.src = "img/Carrot.png";
 assets.potato.src = "img/Potato.png";
@@ -67,47 +69,50 @@ function animatedSprite(img, size, frames, nextFrame) {
   };
 }
 
-let playerDest = 200;
-const playerSpeed = 5;
 let player = new gameThing(
   new animatedSprite(assets.player, [2360, 2254], 4, 15),
   playerSize,
-  [200, floor - playerSize[1]]
+  [300, floor - playerSize[1]]
 );
 let pot = new gameThing(
   new animatedSprite(assets.pot, [500, 500], 2, 15),
   potSize,
   [100, floor - 100]
 );
+let stump = new gameThing(
+  new animatedSprite(assets.stump, [500, 500], 2, 15),
+  potSize,
+  [200, floor - 100]
+);
 let beet = new gameThing(
   new animatedSprite(assets.beet, [300, 1000], 2, 15),
   beetSize,
-  [400, floor - 50]
+  [600, floor - 50]
 );
 let carrot = new gameThing(
   new animatedSprite(assets.carrot, [300, 1000], 2, 15),
   carrotSize,
-  [600, floor - 50]
+  [800, floor - 50]
 );
 let potato = new gameThing(
   new animatedSprite(assets.potato, [325, 1000], 2, 15),
   potatoSize,
-  [800, floor - 50]
+  [1000, floor - 50]
 );
 let onion = new gameThing(
   new animatedSprite(assets.onion, [325, 1000], 2, 15),
   onionSize,
-  [1000, floor - 80]
+  [1200, floor - 80]
 );
 const veg = [beet, carrot, potato, onion];
 
 let gameState = {
   holding: null,
-  // beetHeld: false,
   pot: new Set(),
-  // beetInPot: false,
   gameOver: false,
+  playerDest: player.pos[0],
 };
+const playerSpeed = 5;
 
 function near(a, b, d) {
   return Math.abs(a - b) < d;
@@ -121,10 +126,10 @@ function drawEnd() {
 }
 
 function updatePlayer() {
-  let dist = playerDest - player.pos[0];
+  let dist = gameState.playerDest - player.pos[0];
   if (dist < playerSpeed && dist > -playerSpeed) {
-    player.pos[0] = playerDest;
-  } else if (player.pos[0] < playerDest) {
+    player.pos[0] = gameState.playerDest;
+  } else if (player.pos[0] < gameState.playerDest) {
     player.pos[0] += playerSpeed;
   } else {
     player.pos[0] -= playerSpeed;
@@ -164,7 +169,7 @@ canvas.onclick = function (event) {
   const rect = canvas.getBoundingClientRect();
   const x = event.clientX - rect.left - player.size[0] / 2;
   // const y = event.clientY - rect.top;
-  playerDest = x;
+  gameState.playerDest = x;
 };
 
 function game() {
@@ -176,6 +181,7 @@ function game() {
     updateVeg();
     player.draw();
     pot.draw();
+    stump.draw();
     drawVeg();
     window.requestAnimationFrame(game);
   }

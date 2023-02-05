@@ -3,6 +3,7 @@ const ctx = canvas.getContext("2d");
 
 const canvasSize = [1400, 800];
 const playerSize = [150, 150];
+const rabbitSize = [100, 100];
 const potSize = [100, 100];
 const beetSize = [50, 100];
 const carrotSize = [20, 80];
@@ -15,6 +16,7 @@ const assets = {
   background: new Image(),
   end: new Image(),
   player: new Image(),
+  rabbit: new Image(),
   pot: new Image(),
   stump: new Image(),
   beet: new Image(),
@@ -24,6 +26,7 @@ const assets = {
 };
 assets.background.src = "img/bg.png";
 assets.player.src = "img/voi_sheet.png";
+assets.rabbit.src = "img/Rabbit.png";
 assets.pot.src = "img/Pot.png";
 assets.stump.src = "img/Stump.png";
 assets.beet.src = "img/Beet.png";
@@ -74,6 +77,11 @@ let player = new gameThing(
   playerSize,
   [300, floor - playerSize[1]]
 );
+let rabbit = new gameThing(
+  new animatedSprite(assets.rabbit, [500, 500], 2, 15),
+  playerSize,
+  [1200, floor - rabbitSize[1]]
+);
 let pot = new gameThing(
   new animatedSprite(assets.pot, [500, 500], 2, 15),
   potSize,
@@ -92,17 +100,17 @@ let beet = new gameThing(
 let carrot = new gameThing(
   new animatedSprite(assets.carrot, [300, 1000], 2, 15),
   carrotSize,
-  [800, floor - 50]
+  [700, floor - 50]
 );
 let potato = new gameThing(
   new animatedSprite(assets.potato, [325, 1000], 2, 15),
   potatoSize,
-  [1000, floor - 50]
+  [800, floor - 50]
 );
 let onion = new gameThing(
   new animatedSprite(assets.onion, [325, 1000], 2, 15),
   onionSize,
-  [1200, floor - 80]
+  [900, floor - 80]
 );
 const veg = [beet, carrot, potato, onion];
 
@@ -180,6 +188,7 @@ function game() {
     updatePlayer();
     updateVeg();
     player.draw();
+    rabbit.draw();
     pot.draw();
     stump.draw();
     drawVeg();

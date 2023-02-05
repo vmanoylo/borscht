@@ -3,6 +3,7 @@ const ctx = canvas.getContext("2d");
 
 const canvasSize = [1400, 800];
 const playerSize = [150, 150];
+const potSize = [100, 100];
 const beetSize = [50, 100];
 const carrotSize = [20, 80];
 const potatoSize = [50, 80];
@@ -12,15 +13,17 @@ const floor = 720;
 // assets
 const assets = {
   background: new Image(),
+  end: new Image(),
   player: new Image(),
+  pot: new Image(),
   beet: new Image(),
   carrot: new Image(),
   potato: new Image(),
   onion: new Image(),
-  end: new Image(),
 };
 assets.background.src = "img/bg.png";
 assets.player.src = "img/voi_sheet.png";
+assets.pot.src = "img/pot.png";
 assets.beet.src = "img/Beet.png";
 assets.carrot.src = "img/Carrot.png";
 assets.potato.src = "img/Potato.png";
@@ -64,12 +67,17 @@ function animatedSprite(img, size, frames, nextFrame) {
   };
 }
 
-let playerDest = 100;
+let playerDest = 200;
 const playerSpeed = 5;
 let player = new gameThing(
   new animatedSprite(assets.player, [2360, 2254], 4, 15),
   playerSize,
-  [100, floor - playerSize[1]]
+  [200, floor - playerSize[1]]
+);
+let pot = new gameThing(
+  new animatedSprite(assets.pot, [500, 500], 2, 15),
+  potSize,
+  [100, floor - 100]
 );
 let beet = new gameThing(
   new animatedSprite(assets.beet, [300, 1000], 2, 15),
@@ -127,8 +135,7 @@ function updateVeg() {
   for (let it of veg) {
     if (!gameState.pot.has(it)) {
       if (gameState.holding == it) {
-        if (near(player.pos[0], 100, 40)) {
-          // near pot
+        if (near(player.pos[0], pot.pos[0], 40)) {
           gameState.holding = null;
           gameState.pot.add(it);
         }
@@ -168,6 +175,7 @@ function game() {
     updatePlayer();
     updateVeg();
     player.draw();
+    pot.draw();
     drawVeg();
     window.requestAnimationFrame(game);
   }

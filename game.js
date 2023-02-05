@@ -24,6 +24,7 @@ const assets = {
   potato: new Image(),
   onion: new Image(),
   step: new Audio("sound/step.mp3"),
+  splash: new Audio("sound/splash.mp3"),
 };
 assets.background.src = "img/bg.png";
 assets.player.src = "img/voi_sheet.png";
@@ -152,6 +153,7 @@ function updateVeg() {
         if (near(player.pos[0], pot.pos[0], 40)) {
           gameState.holding = null;
           gameState.pot.add(it);
+          assets.splash.play();
         }
         it.pos[0] = player.pos[0] + 80;
         it.pos[1] = player.pos[1];

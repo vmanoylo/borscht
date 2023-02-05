@@ -23,7 +23,7 @@ const assets = {
   carrot: new Image(),
   potato: new Image(),
   onion: new Image(),
-  step: new Audio("sound/step.mp3"),
+  step: new Audio("sound/step.wav"),
   splash: new Audio("sound/splash.mp3"),
 };
 assets.background.src = "img/bg.png";

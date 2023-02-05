@@ -23,7 +23,7 @@ const assets = {
 };
 assets.background.src = "img/bg.png";
 assets.player.src = "img/voi_sheet.png";
-assets.pot.src = "img/pot.png";
+assets.pot.src = "img/Pot.png";
 assets.beet.src = "img/Beet.png";
 assets.carrot.src = "img/Carrot.png";
 assets.potato.src = "img/Potato.png";

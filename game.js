@@ -178,6 +178,8 @@ function drawVeg() {
 }
 
 canvas.onclick = function (event) {
+  if (gameState.gameOver)
+    return;
   assets.song.loop = true;
   assets.song.play();
   const rect = canvas.getBoundingClientRect();
